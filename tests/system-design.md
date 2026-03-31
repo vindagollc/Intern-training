@@ -2,7 +2,7 @@
 
 Design a City Explorer system with emphasis on:
 - Events
-- Listings and Directory
+- Business Listings and Directory
 - Forums and comments
 - Tourist attractions
 - Social Ratings and reviews for Listings and Tourist attractions
