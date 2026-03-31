@@ -10,35 +10,34 @@
 ## 1. API Endpoints (REST)
 
 ### Users
-| Method | Endpoint | Body Parameters |
-| :--- | :--- | :--- |
-| `POST` | `/users` | `username`, `email`, `password_hash` |
-| `GET` | `/users/:id` | - |
+| Method | Endpoint | Success Code | Body Parameters |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/users` | `201 Created` | `username`, `email`, `password_hash` |
+| `GET` | `/users/:id` | `200 OK` | - |
 
 ### Locations & Content
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/locations` | List all locations |
-| `GET` | `/locations/:id/attractions` | Get attractions for a specific location |
-| `GET` | `/locations/:id/listings` | Get listings for a specific location |
-| `GET` | `/locations/:id/events` | Get events for a specific location |
+| Method | Endpoint | Success Code | Description |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/locations` | `200 OK` | List all locations |
+| `GET` | `/locations/:id/attractions` | `200 OK` | Get attractions for a specific location |
+| `GET` | `/locations/:id/listings` | `200 OK` | Get listings for a specific location |
+| `GET` | `/locations/:id/events` | `200 OK` | Get events for a specific location |
 
 ### Details
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/attractions/:id` | Fetch specific attraction details |
-| `GET` | `/listings/:id` | Fetch specific business listing details |
-| `GET` | `/events/:id` | Fetch specific event details |
+| Method | Endpoint | Success Code | Description |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/attractions/:id` | `200 OK` | Fetch specific attraction details |
+| `GET` | `/listings/:id` | `200 OK` | Fetch specific business listing details |
+| `GET` | `/events/:id` | `200 OK` | Fetch specific event details |
 
 ### Community & Engagement
-| Method | Endpoint | Body Parameters |
-| :--- | :--- | :--- |
-| `POST` | `/reviews` | `user_id`, `target_id`, `rating`, `content` |
-| `GET` | `/forum-posts` | Query param: `city_zone` |
-| `POST` | `/forum-posts/:id/comments` | `user_id`, `content` |
-| `PATCH` | `/comments/:id` | `upvotes`, `downvotes`, `is_deleted` |
+| Method | Endpoint | Success Code | Body Parameters |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/reviews` | `201 Created` | `user_id`, `target_id`, `rating`, `content` |
+| `GET` | `/forum-posts` | `200 OK` | Query param: `city_zone` |
+| `POST` | `/forum-posts/:id/comments` | `201 Created` | `user_id`, `content` |
+| `PATCH` | `/comments/:id` | `200 OK` | `upvotes`, `downvotes`, `is_deleted` |
 
----
 
 ## 2. Operations & Logic
 
