@@ -266,7 +266,7 @@ MEDIA {
 }
 ```
 
-## Database Design with Translation (Diff tables for each table)
+## Database Design with Translation (Diff translation tables for each table)
 
 ```mermaid
 erDiagram
@@ -472,3 +472,185 @@ erDiagram
     timestamp updated_at
   }
   ```
+
+## Database Design with Translation (One Translatiion table for the database)
+
+```mermaid
+    erDiagram
+    USERS ||--o{ REVIEWS : writes
+    USERS ||--o{ FORUM_POSTS : creates
+    USERS ||--o{ COMMENTS : posts
+    USERS ||--o{ MEDIA : uploads
+    USERS ||--o{ TRANSLATIONS : translates
+
+    LANGUAGES ||--o{ TRANSLATIONS : supports
+
+    TOURIST ||--o{ REVIEWS : receives
+    TOURIST ||--o{ MEDIA : has
+    TOURIST ||--o{ TRANSLATIONS : translated
+
+    BUSINESS_LISTINGS ||--o{ REVIEWS : receives
+    BUSINESS_LISTINGS ||--o{ MEDIA : has
+    BUSINESS_LISTINGS ||--o{ BUSINESS_CONTACTS : has
+    BUSINESS_LISTINGS ||--o{ TRANSLATIONS : translated
+
+    EVENTS ||--o{ MEDIA : has
+    EVENTS ||--o{ TRANSLATIONS : translated
+
+    FORUM_POSTS ||--o{ COMMENTS : has
+    FORUM_POSTS ||--o{ TRANSLATIONS : translated
+
+    COMMENTS ||--o{ COMMENTS : replies_to
+    UI_STRINGS ||--o{ TRANSLATIONS : "translated via"
+
+    %% USERS
+    USERS {
+        uuid id PK
+        string username
+        string email
+        string password_hash
+        string preferred_language
+        boolean is_verified
+        boolean is_blocked
+        datetime last_login
+        datetime created_at
+        datetime updated_at
+    }
+
+    %% LANGUAGES
+    LANGUAGES {
+        string code PK
+        string name
+        string native_name
+        boolean is_default
+        boolean is_active
+    }
+
+    %% TRANSLATIONS (Improved)
+    TRANSLATIONS {
+        uuid id PK
+        string entity_type
+        uuid entity_id
+        string field_name
+        string language_code FK
+        text value
+        string translation_status
+        uuid translated_by FK
+        datetime created_at
+        datetime updated_at
+    }
+
+    %% UI STRINGS
+    UI_STRINGS {
+        uuid id PK
+        string key
+        string section
+        text default_value
+        boolean is_active
+        datetime created_at
+    }
+
+    %% TOURIST
+    TOURIST {
+        uuid id PK
+        decimal entry_fee
+        geography location
+        decimal avg_rating
+        int total_reviews
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
+    }
+
+    %% BUSINESS LISTINGS
+    BUSINESS_LISTINGS {
+        uuid id PK
+        geography location
+        boolean is_verified
+        decimal avg_rating
+        int total_reviews
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
+    }
+
+    %% BUSINESS CONTACTS
+    BUSINESS_CONTACTS {
+        uuid id PK
+        uuid business_id FK
+        string type
+        string value
+    }
+
+    %% EVENTS
+    EVENTS {
+        uuid id PK
+        datetime start_time
+        datetime end_time
+        text ticket_url
+        geography location
+        string status
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
+    }
+
+    %% REVIEWS
+    REVIEWS {
+        uuid id PK
+        uuid user_id FK
+        uuid target_id
+        string target_type
+        int rating
+        text content
+        string content_language
+        boolean is_verified
+        int helpful_count
+        int report_count
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
+    }
+
+    %% FORUM POSTS
+    FORUM_POSTS {
+        uuid id PK
+        uuid user_id FK
+        string city_zone
+        string original_language
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
+    }
+
+    %% COMMENTS
+    COMMENTS {
+        uuid id PK
+        uuid forum_id FK
+        uuid user_id FK
+        uuid parent_id FK
+        text content
+        string original_language
+        int upvotes
+        boolean is_edited
+        datetime edited_at
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
+    }
+
+    %% MEDIA
+    MEDIA {
+        uuid id PK
+        uuid uploader_id FK
+        uuid target_id
+        string target_type
+        text url
+        string media_type
+        int file_size
+        text thumbnail_url
+        datetime created_at
+        datetime deleted_at
+    }
+```
