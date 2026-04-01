@@ -1,7 +1,93 @@
 # Database Design
 
-![alt text](image.png)
+# City Explorer ER Diagram
 
+```mermaid
+erDiagram
+    direction TB
+
+    USER {
+        UUID id PK
+        string name
+        string email UK
+        string password_hash
+        timestamp created_at
+    }
+
+    LISTING {
+        UUID id PK
+        string name
+        string category
+        string description
+        string photo_url
+        string address
+        string city
+        string contact_info
+        UUID created_by FK
+        timestamp created_at
+    }
+
+    EVENT {
+        UUID id PK
+        string title
+        string description
+        string location
+        string city
+        timestamp start_time
+        timestamp end_time
+        UUID organizer_id FK
+    }
+
+    REVIEW {
+        UUID id PK
+        UUID user_id FK
+        UUID entity_id
+        string entity_type
+        int rating
+        string comment
+        timestamp created_at
+    }
+
+    COMMENT {
+        UUID id PK
+        UUID forum_id FK
+        UUID user_id FK
+        UUID parent_id
+        string content
+        int upvotes
+        int downvotes
+        boolean is_deleted
+        timestamp created_at
+    }
+
+    FORUM {
+        UUID id PK
+        string title
+        text content
+        UUID created_by FK
+        timestamp created_at
+    }
+
+    ATTRACTION {
+        UUID id PK
+        string photo_url
+        string name
+        string description
+        string address
+        string city
+        decimal entry_fee
+        string timings
+    }
+
+    USER ||--o{ LISTING : creates
+    USER ||--o{ EVENT : organizes
+    USER ||--o{ REVIEW : writes
+    USER ||--o{ COMMENT : writes
+    USER ||--o{ FORUM : creates
+    FORUM ||--o{ COMMENT : has
+    LISTING ||--o{ REVIEW : has
+    ATTRACTION ||--o{ REVIEW : has
+```
 # API Design
 
 # Authentication APIs
