@@ -6,11 +6,30 @@ This is an Architecture Diagram, and it’s the big picture of how your project 
 
 ## Architecture Diagram
 
-![Architecture Diagram](image.png)
+```mermaid
+graph LR
+    subgraph Clients ["📱 CLIENTS"]
+        A[React Web App]
+        B[Mobile App]
+    end
 
-## Database Design
+    subgraph Server ["⚡ API SERVER"]
+        C{REST API<br/>Express.js}
+        D[Swagger Docs]
+        E[JWT Auth Middleware]
+    end
 
-THis is a Database Design designed using Mermaid tool
+    subgraph Storage ["💾 STORAGE"]
+        F[(PostgreSQL DB)]
+        G[Cloudinary/S3]
+    end
+
+    A -- "HTTP / JSON" --> C
+    B -- "HTTP / JSON" --> C
+    C -.-> D
+    C --> E
+    E --> F
+    C -- "Uploads" --> G
 
 erDiagram
     USER ||--o{ REVIEW : writes
