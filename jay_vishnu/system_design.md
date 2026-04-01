@@ -30,7 +30,9 @@ graph LR
     C --> E
     E --> F
     C -- "Uploads" --> G
-
+```
+## Database Design
+```mermaid
 erDiagram
     USER ||--o{ REVIEW : writes
     USER ||--o{ FORUM_POST : creates
@@ -111,7 +113,7 @@ erDiagram
         boolean is_deleted 
         time_stamp created_at
     }
-
+```
 
 # API Design
 
