@@ -88,6 +88,330 @@ erDiagram
     LISTING ||--o{ REVIEW : has
     ATTRACTION ||--o{ REVIEW : has
 ```
+
+# Translation
+
+## Method-1
+  ```mermaid
+  erDiagram
+	direction TB
+	USER {
+		UUID id PK ""  
+		string name  ""  
+		string email UK ""  
+		string password_hash  ""  
+		timestamp created_at  ""  
+		timestamp updated_at  ""  
+	}
+
+	LISTING {
+		UUID id PK ""  
+		string category  ""  
+		string photo_url  ""  
+		string contact_info  ""  
+		UUID created_by FK ""  
+		timestamp created_at  ""  
+		timestamp updated_at  ""  
+	}
+
+	LISTING_EN {
+		UUID id PK ""  
+		UUID listing_id FK ""  
+		string name  ""  
+		string description  ""  
+		string address  ""  
+		string city  ""  
+	}
+
+	LISTING_TE {
+		UUID id PK ""  
+		UUID listing_id FK ""  
+		string name  ""  
+		string description  ""  
+		string address  ""  
+		string city  ""  
+	}
+
+	EVENT {
+		UUID id PK ""  
+		string location  ""  
+		string city  ""  
+		timestamp start_time  ""  
+		timestamp end_time  ""  
+		UUID organizer_id FK ""  
+		timestamp created_at  ""  
+		timestamp updated_at  ""  
+	}
+
+	EVENT_EN {
+		UUID id PK ""  
+		UUID event_id FK ""  
+		string title  ""  
+		string description  ""  
+	}
+
+	EVENT_TE {
+		UUID id PK ""  
+		UUID event_id FK ""  
+		string title  ""  
+		string description  ""  
+	}
+
+	FORUM {
+		UUID id PK ""  
+		UUID created_by FK ""  
+		timestamp created_at  ""  
+		timestamp updated_at  ""  
+	}
+
+	FORUM_EN {
+		UUID id PK ""  
+		UUID forum_id FK ""  
+		string title  ""  
+		string content  ""  
+	}
+
+	FORUM_TE {
+		UUID id PK ""  
+		UUID forum_id FK ""  
+		string title  ""  
+		string content  ""  
+	}
+
+	ATTRACTION {
+		UUID id PK ""  
+		string photo_url  ""  
+		decimal entry_fee  ""  
+		string timings  ""  
+		timestamp created_at  ""  
+		timestamp updated_at  ""  
+	}
+
+	ATTRACTION_EN {
+		UUID id PK ""  
+		UUID attraction_id FK ""  
+		string name  ""  
+		string description  ""  
+		string address  ""  
+		string city  ""  
+	}
+
+	ATTRACTION_TE {
+		UUID id PK ""  
+		UUID attraction_id FK ""  
+		string name  ""  
+		string description  ""  
+		string address  ""  
+		string city  ""  
+	}
+
+	REVIEW {
+		UUID id PK ""  
+		UUID user_id FK ""  
+		UUID entity_id  ""  
+		string entity_type  ""  
+		int rating  ""  
+		string comment  ""  
+		timestamp created_at  ""  
+		timestamp updated_at  ""  
+	}
+
+	COMMENT {
+		UUID id PK ""  
+		UUID forum_id FK ""  
+		UUID user_id FK ""  
+		UUID parent_id  ""  
+		string content  ""  
+		int upvotes  ""  
+		int downvotes  ""  
+		boolean is_deleted  ""  
+		timestamp created_at  ""  
+		timestamp updated_at  ""  
+	}
+
+	USER||--o{LISTING:"creates"
+	USER||--o{EVENT:"organizes"
+	USER||--o{REVIEW:"writes"
+	USER||--o{COMMENT:"writes"
+	USER||--o{FORUM:"creates"
+	FORUM||--o{COMMENT:"has"
+	LISTING||--o{REVIEW:"has"
+	ATTRACTION||--o{REVIEW:"has"
+	LISTING||--o{LISTING_EN:"has"
+	LISTING||--o{LISTING_TE:"has"
+	EVENT||--o{EVENT_EN:"has"
+	EVENT||--o{EVENT_TE:"has"
+	FORUM||--o{FORUM_EN:"has"
+	FORUM||--o{FORUM_TE:"has"
+	ATTRACTION||--o{ATTRACTION_EN:"has"
+	ATTRACTION||--o{ATTRACTION_TE:"has"
+
+  ```
+
+## Method-2
+
+```mermaid
+  erDiagram
+    direction TB
+
+    USER {
+        UUID id PK
+        string name
+        string email UK
+        string password_hash
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    LISTING {
+        UUID id PK
+        string category
+        string photo_url
+        string contact_info
+        UUID created_by FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    LISTING_EN {
+        UUID id PK
+        UUID listing_id FK
+        string name
+        string description
+        string address
+        string city
+    }
+
+    LISTING_TE {
+        UUID id PK
+        UUID listing_id FK
+        string name
+        string description
+        string address
+        string city
+    }
+
+    EVENT {
+        UUID id PK
+        string location
+        string city
+        timestamp start_time
+        timestamp end_time
+        UUID organizer_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    EVENT_EN {
+        UUID id PK
+        UUID event_id FK
+        string title
+        string description
+    }
+
+    EVENT_TE {
+        UUID id PK
+        UUID event_id FK
+        string title
+        string description
+    }
+
+    FORUM {
+        UUID id PK
+        UUID created_by FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    FORUM_EN {
+        UUID id PK
+        UUID forum_id FK
+        string title
+        string content
+    }
+
+    FORUM_TE {
+        UUID id PK
+        UUID forum_id FK
+        string title
+        string content
+    }
+
+    ATTRACTION {
+        UUID id PK
+        string photo_url
+        decimal entry_fee
+        string timings
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    ATTRACTION_EN {
+        UUID id PK
+        UUID attraction_id FK
+        string name
+        string description
+        string address
+        string city
+    }
+
+    ATTRACTION_TE {
+        UUID id PK
+        UUID attraction_id FK
+        string name
+        string description
+        string address
+        string city
+    }
+
+    REVIEW {
+        UUID id PK
+        UUID user_id FK
+        UUID entity_id
+        string entity_type
+        int rating
+        string comment
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    COMMENT {
+        UUID id PK
+        UUID forum_id FK
+        UUID user_id FK
+        UUID parent_id
+        string content
+        int upvotes
+        int downvotes
+        boolean is_deleted
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    USER ||--o{ LISTING : creates
+    USER ||--o{ EVENT : organizes
+    USER ||--o{ REVIEW : writes
+    USER ||--o{ COMMENT : writes
+    USER ||--o{ FORUM : creates
+
+    FORUM ||--o{ COMMENT : has
+
+    LISTING ||--o{ REVIEW : has
+    ATTRACTION ||--o{ REVIEW : has
+
+    LISTING ||--o{ LISTING_EN : has
+    LISTING ||--o{ LISTING_TE : has
+
+    EVENT ||--o{ EVENT_EN : has
+    EVENT ||--o{ EVENT_TE : has
+
+    FORUM ||--o{ FORUM_EN : has
+    FORUM ||--o{ FORUM_TE : has
+
+    ATTRACTION ||--o{ ATTRACTION_EN : has
+    ATTRACTION ||--o{ ATTRACTION_TE : has
+```
+
 # API Design
 
 # Authentication APIs
